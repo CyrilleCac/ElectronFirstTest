@@ -1,0 +1,22 @@
+{
+  "name": "ea-todo",
+  "description": "First app using Electron Angular. Following http://electron.rocks/electron-angularjs/",
+  "main": "index.js",
+  "authors": [
+    "Cyrille"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/CyrilleCac/ElectronFirstTest",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-material": "^1.1.4"
+  }
+}
