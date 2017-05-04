@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/CyrilleCac/ElectronFirstTest#readme",
   "dependencies": {
-    "electron-prebuilt": "^1.4.13"
+    "electron-plugins": "^0.1.0",
+    "electron-prebuilt": "^1.4.13",
+    "electron-updater": "^1.14.3"
   }
 }
