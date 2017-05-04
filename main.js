@@ -1,37 +1,43 @@
 const electron = require('electron');  
 const app = electron.app;  
-const BrowserWindow = electron.BrowserWindow;
+const BrowserWindow = electron.BrowserWindow;  
+const updater = require('electron-updater');
 
-// Keep reference of main window because of GC
 var mainWindow = null;
 
-// Quit when all windows are closed
 app.on('window-all-closed', function() {  
     app.quit();
 });
 
-// When application is ready, create application window
 app.on('ready', function() {
 
-    // Create main window
-    // Other options available at:
-    // http://electron.atom.io/docs/latest/api/browser-window/#new-browserwindow-options
-    mainWindow = new BrowserWindow({
-        name: "ea-todo",
-        width: 400,
-        height: 600,
-        toolbar: false
+    updater.on('ready', function() {
+
+        mainWindow = new BrowserWindow({
+            name: "ea-todo",
+            width: 400,
+            height: 600,
+            toolbar: false
+        });
+
+        mainWindow.loadURL('file://' + __dirname + "/app/index.html");
+
+        mainWindow.on('closed', function() {
+            mainWindow = null;
+        });
+
     });
 
-    // Target HTML file which will be opened in window
-    mainWindow.loadURL('file://' + __dirname + "/app/index.html");
-
-    // Uncomment to use Chrome developer tools
-    // mainWindow.webContents.openDevTools({detach:true});
-
-    // Cleanup when window is closed
-    mainWindow.on('closed', function() {
-        mainWindow = null;
+    updater.on('update-required', function() {
+        app.quit();
     });
+
+    updater.on('update-available', function() {
+        if(mainWindow) {
+            mainWindow.webContents.send('update-available');
+        }
+    });
+
+    updater.start();
 
 });
